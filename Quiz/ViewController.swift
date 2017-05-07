@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UIViewController {
     
     let model = QuizModel()
-    var questions = [Questions]()
+    var questions = [Question]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
