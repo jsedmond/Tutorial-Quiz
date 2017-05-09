@@ -12,7 +12,7 @@ class Question: NSObject {
     
     var questionText = ""
     var answers = [String]()
-    var corectAnswerIndex = 0
+    var correctAnswerIndex = 0
     var module = 0
     var lesson = 0
     var feedback = ""

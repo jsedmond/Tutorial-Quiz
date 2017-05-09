@@ -14,6 +14,7 @@
 		1DFF8C791EBF4829009A22C6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DFF8C771EBF4829009A22C6 /* LaunchScreen.storyboard */; };
 		1DFF8C811EBF494C009A22C6 /* QuizModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFF8C801EBF494C009A22C6 /* QuizModel.swift */; };
 		1DFF8C831EBF4976009A22C6 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFF8C821EBF4976009A22C6 /* Question.swift */; };
+		1DFF8C851EC170E7009A22C6 /* QuestionData.json in Resources */ = {isa = PBXBuildFile; fileRef = 1DFF8C841EC170E7009A22C6 /* QuestionData.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		1DFF8C7A1EBF4829009A22C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1DFF8C801EBF494C009A22C6 /* QuizModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizModel.swift; sourceTree = "<group>"; };
 		1DFF8C821EBF4976009A22C6 /* Question.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
+		1DFF8C841EC170E7009A22C6 /* QuestionData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = QuestionData.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 				1DFF8C701EBF4829009A22C6 /* ViewController.swift */,
 				1DFF8C801EBF494C009A22C6 /* QuizModel.swift */,
 				1DFF8C821EBF4976009A22C6 /* Question.swift */,
+				1DFF8C841EC170E7009A22C6 /* QuestionData.json */,
 				1DFF8C721EBF4829009A22C6 /* Main.storyboard */,
 				1DFF8C751EBF4829009A22C6 /* Assets.xcassets */,
 				1DFF8C771EBF4829009A22C6 /* LaunchScreen.storyboard */,
@@ -132,6 +135,7 @@
 				1DFF8C791EBF4829009A22C6 /* LaunchScreen.storyboard in Resources */,
 				1DFF8C761EBF4829009A22C6 /* Assets.xcassets in Resources */,
 				1DFF8C741EBF4829009A22C6 /* Main.storyboard in Resources */,
+				1DFF8C851EC170E7009A22C6 /* QuestionData.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
