@@ -10,6 +10,10 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var questionLabel: UILabel!
+    
+    @IBOutlet weak var answerStackView: UIStackView!
+    
     let model = QuizModel()
     var questions = [Question]()
 
