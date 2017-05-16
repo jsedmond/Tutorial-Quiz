@@ -11,8 +11,9 @@ import UIKit
 class ViewController: UIViewController {
     
     @IBOutlet weak var questionLabel: UILabel!
-    
     @IBOutlet weak var answerStackView: UIStackView!
+    
+    var currentQuestion:Question?
     
     let model = QuizModel()
     var questions = [Question]()
@@ -23,6 +24,17 @@ class ViewController: UIViewController {
         
         // Call get questions
         questions = model.getQuestions()
+        
+        // Check if there are questions
+        if questions.count > 0 {
+            
+            currentQuestion = questions[0]
+            
+            // Display the current question
+            displayCurrentQuestion()
+            
+            
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,6 +42,50 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    func displayCurrentQuestion() {
+        
+        if let actualCurrentQuestion = currentQuestion {
+            
+            // Set the question label
+            questionLabel.text = actualCurrentQuestion.questionText
+            
+            // Create the answer buttons and place them into the scrollview
+            createAnswerButtons()
+        }
+    }
+    
+    func createAnswerButtons() {
+        
+        if let actualCurrentQuestion = currentQuestion {
+            
+            for index in 0...actualCurrentQuestion.answers.count - 1 {
+                
+                // Create an answer button
+                let answerButton = AnswerButton()
+                
+                // Create a height constraint for it
+                let heightConstraint = NSLayoutConstraint.init(item: answerButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 100)
+                answerButton.addConstraint(heightConstraint)
+                
+                // Set the answer text
+                answerButton.setAnswerText(answerText: actualCurrentQuestion.answers[index])
+                
+                // TODO: Create and attach a tapguesturerecognizer
+                
+                // Place the answer button into the stackview
+                answerStackView.addArrangedSubview(answerButton)
+                
+            }
+        }
+        
+    }
+    
+    
+    
+    
+    
+    
+    
 
 }
 
