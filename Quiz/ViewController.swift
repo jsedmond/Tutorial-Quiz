@@ -62,6 +62,7 @@ class ViewController: UIViewController {
                 
                 // Create an answer button
                 let answerButton = AnswerButton()
+                answerButton.tag = index
                 
                 // Create a height constraint for it
                 let heightConstraint = NSLayoutConstraint.init(item: answerButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 100)
@@ -71,6 +72,9 @@ class ViewController: UIViewController {
                 answerButton.setAnswerText(answerText: actualCurrentQuestion.answers[index])
                 
                 // TODO: Create and attach a tapguesturerecognizer
+                let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(answerTapped(gestureRecognizer:)))
+                
+                answerButton.addGestureRecognizer(gestureRecognizer)
                 
                 // Place the answer button into the stackview
                 answerStackView.addArrangedSubview(answerButton)
@@ -80,6 +84,27 @@ class ViewController: UIViewController {
         
     }
     
+    
+    func answerTapped(gestureRecognizer:UITapGestureRecognizer){
+        
+        // Detect which button was tapped
+        if gestureRecognizer.view as? AnswerButton != nil {
+            
+            // Definitely view property is not nil and IS an answerbutton object
+            let answerButton = gestureRecognizer.view as! AnswerButton
+            
+            if answerButton.tag == currentQuestion?.correctAnswerIndex {
+                // User got it correct
+                print("correct")
+                
+            }
+            else {
+                // User got it wrong
+                print("wrong")
+            }
+            
+        }
+    }
     
     
     
