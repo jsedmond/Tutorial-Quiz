@@ -124,6 +124,44 @@ class ViewController: UIViewController {
     
     
     
+    @IBAction func resultButtonTapped(_ sender: Any) {
+        
+        // Remove the answer buttons
+        for view in answerStackView.arrangedSubviews {
+            view.removeFromSuperview()
+        }
+        
+        // Determine what infex the current question is within the questions array
+        let indexOfCurrentQuestion = questions.index(of: currentQuestion!)
+        
+        if let actualIndex = indexOfCurrentQuestion {
+        
+            // Increment the index
+            let nextIndex = actualIndex + 1
+        
+            // Check that it's within bounds of the questions array
+            if nextIndex < questions.count {
+                
+                // Set the new current question
+                currentQuestion = questions[nextIndex]
+                
+                // Display the next question
+                displayCurrentQuestion()
+                
+                // Remove the dim view
+                dimView.alpha = 0
+            }
+
+            
+        }
+    }
+    
+  
+    
+    
+    
+    
+    
     
     
     
