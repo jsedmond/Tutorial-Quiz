@@ -13,6 +13,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var answerStackView: UIStackView!
     
+    // Feedback screen
+    @IBOutlet weak var dimView: UIView!
+    @IBOutlet weak var resultLabel: UILabel!
+    @IBOutlet weak var feedbackLabel: UILabel!
+    @IBOutlet weak var resultButton: UIButton!
+    
     var currentQuestion:Question?
     
     let model = QuizModel()
@@ -21,6 +27,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        // Hide feedback screen
+        dimView.alpha = 0
         
         // Call get questions
         questions = model.getQuestions()
@@ -95,14 +104,21 @@ class ViewController: UIViewController {
             
             if answerButton.tag == currentQuestion?.correctAnswerIndex {
                 // User got it correct
-                print("correct")
+                resultLabel.text = "Correct"
                 
             }
             else {
                 // User got it wrong
-                print("wrong")
+                resultLabel.text = "Incorrect"
             }
             
+            // Set the feedback label
+            feedbackLabel.text = currentQuestion?.feedback
+            
+            // TODO: Set the button text
+            
+            // Show the feedback screen
+            dimView.alpha = 1
         }
     }
     
