@@ -23,6 +23,8 @@ class ViewController: UIViewController {
     
     let model = QuizModel()
     var questions = [Question]()
+    
+    var numberCorrect = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,6 +108,9 @@ class ViewController: UIViewController {
                 // User got it correct
                 resultLabel.text = "Correct"
                 
+                // Increment counter
+                numberCorrect += 1
+                
             }
             else {
                 // User got it wrong
@@ -115,7 +120,8 @@ class ViewController: UIViewController {
             // Set the feedback label
             feedbackLabel.text = currentQuestion?.feedback
             
-            // TODO: Set the button text
+            // Set the button text
+            resultButton.setTitle("Next", for: .normal)
             
             // Show the feedback screen
             dimView.alpha = 1
@@ -131,6 +137,30 @@ class ViewController: UIViewController {
             view.removeFromSuperview()
         }
         
+        // Check the text of the resultButton.  If it's restart then restart the quiz
+        let currentTitle = resultButton.title(for: .normal)
+        
+        // Check if there's a title
+        if let actualTitle = currentTitle {
+            if actualTitle == "Restart" {
+                // Restart the quiz
+                
+                
+                // Set the current question to the first one
+                currentQuestion = questions[0]
+                displayCurrentQuestion()
+                
+                // Get ride of the result screen
+                dimView.alpha = 0
+                
+                // Reset score
+                numberCorrect = 0
+                
+                return
+            }
+        }
+        
+
         // Determine what infex the current question is within the questions array
         let indexOfCurrentQuestion = questions.index(of: currentQuestion!)
         
@@ -150,6 +180,18 @@ class ViewController: UIViewController {
                 
                 // Remove the dim view
                 dimView.alpha = 0
+            }
+            else {
+                // Quiz is over
+                
+                // Set the labels and buttons
+                resultLabel.text = "Results"
+                feedbackLabel.text = "Your score is \(numberCorrect) out of \(questions.count)"
+                resultButton.setTitle("Restart", for: .normal)
+                
+                // Display the feedback screen
+                dimView.alpha = 1
+                
             }
 
             

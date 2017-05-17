@@ -131,6 +131,7 @@
                         <outlet property="dimView" destination="RJw-0h-J89" id="iCi-08-vtN"/>
                         <outlet property="feedbackLabel" destination="3d2-Eu-rng" id="8Nm-1C-3lO"/>
                         <outlet property="questionLabel" destination="HIo-bV-JCG" id="miz-US-RIH"/>
+                        <outlet property="resultButton" destination="rSD-id-SaV" id="iDq-Kc-GuQ"/>
                         <outlet property="resultLabel" destination="mLM-7o-gpX" id="HYZ-xZ-w0E"/>
                     </connections>
                 </viewController>
