@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var resultLabel: UILabel!
     @IBOutlet weak var feedbackLabel: UILabel!
     @IBOutlet weak var resultButton: UIButton!
+    @IBOutlet weak var resultView: UIView!
     
     var currentQuestion:Question?
     
@@ -82,6 +83,9 @@ class ViewController: UIViewController {
                 // Set the answer text
                 answerButton.setAnswerText(answerText: actualCurrentQuestion.answers[index])
                 
+                // Set the number label
+                answerButton.setNumberLabel(answerNumber: index + 1)
+                
                 // TODO: Create and attach a tapguesturerecognizer
                 let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(answerTapped(gestureRecognizer:)))
                 
@@ -108,6 +112,12 @@ class ViewController: UIViewController {
                 // User got it correct
                 resultLabel.text = "Correct"
                 
+                // Set the color for the background
+                resultView.backgroundColor = UIColor(red: 72/255, green: 161/255, blue: 49/255, alpha: 0.5)
+                
+                // Set the color for the button background
+                resultButton.backgroundColor = UIColor(red: 7/255, green: 58/255, blue: 15/255, alpha: 0.5)
+                
                 // Increment counter
                 numberCorrect += 1
                 
@@ -115,6 +125,12 @@ class ViewController: UIViewController {
             else {
                 // User got it wrong
                 resultLabel.text = "Incorrect"
+                
+                // Set the color for the background
+                resultView.backgroundColor = UIColor(red: 161/255, green: 34/255, blue: 36/255, alpha: 0.5)
+                
+                // Set the color for the button background
+                resultButton.backgroundColor = UIColor(red: 58/255, green: 19/255, blue: 16/255, alpha: 0.5)
             }
             
             // Set the feedback label
@@ -188,6 +204,12 @@ class ViewController: UIViewController {
                 resultLabel.text = "Results"
                 feedbackLabel.text = "Your score is \(numberCorrect) out of \(questions.count)"
                 resultButton.setTitle("Restart", for: .normal)
+                
+                // Set the color for the background
+                resultView.backgroundColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 0.5)
+                
+                // Set the color for the button background
+                resultButton.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.5)
                 
                 // Display the feedback screen
                 dimView.alpha = 1
