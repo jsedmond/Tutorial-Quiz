@@ -48,9 +48,11 @@ class ViewController: UIViewController {
             
             currentQuestion = questions[0]
             
+            // load state
+            loadState()
+            
             // Display the current question
             displayCurrentQuestion()
-            
             
         }
     }
@@ -78,6 +80,9 @@ class ViewController: UIViewController {
             
             // Create the answer buttons and place them into the scrollview
             createAnswerButtons()
+            
+            // Save state
+            saveState()
         }
     }
     
@@ -140,11 +145,7 @@ class ViewController: UIViewController {
                 // User got it correct
                 resultLabel.text = "Correct"
                 
-                // Set the color for the background
-                resultView.backgroundColor = UIColor(red: 72/255, green: 161/255, blue: 49/255, alpha: 0.5)
-                
-                // Set the color for the button background
-                resultButton.backgroundColor = UIColor(red: 7/255, green: 58/255, blue: 15/255, alpha: 0.5)
+                changeResultViewColor(color: UIColor.green)
                 
                 // Increment counter
                 numberCorrect += 1
@@ -154,11 +155,7 @@ class ViewController: UIViewController {
                 // User got it wrong
                 resultLabel.text = "Incorrect"
                 
-                // Set the color for the background
-                resultView.backgroundColor = UIColor(red: 161/255, green: 34/255, blue: 36/255, alpha: 0.5)
-                
-                // Set the color for the button background
-                resultButton.backgroundColor = UIColor(red: 58/255, green: 19/255, blue: 16/255, alpha: 0.5)
+                changeResultViewColor(color: UIColor.red)
             }
             
             // Set the feedback label
@@ -185,9 +182,9 @@ class ViewController: UIViewController {
                 // Show the feedback screen
                 self.dimView.alpha = 1
                 
-            }, completion: nil)
-            
-
+            }, completion: { (Bool) in
+                self.saveState()
+            })
         }
     }
     
@@ -222,7 +219,6 @@ class ViewController: UIViewController {
                 return
             }
         }
-        
 
         // Determine what infex the current question is within the questions array
         let indexOfCurrentQuestion = questions.index(of: currentQuestion!)
@@ -238,11 +234,11 @@ class ViewController: UIViewController {
                 // Set the new current question
                 currentQuestion = questions[nextIndex]
                 
-                // Display the next question
-                displayCurrentQuestion()
-                
                 // Remove the dim view
                 dimView.alpha = 0
+                
+                // Display the next question
+                displayCurrentQuestion()
             }
             else {
                 // Quiz is over
@@ -261,14 +257,131 @@ class ViewController: UIViewController {
                 // Display the feedback screen
                 dimView.alpha = 1
                 
+                // Reset the locally stored values
+                eraseState()
+                
             }
 
             
         }
     }
     
-  
+    func changeResultViewColor(color:UIColor) {
+        
+        
+        if color == UIColor.green {
+            
+            // Set the color for the background
+            resultView.backgroundColor = UIColor(red: 72/255, green: 161/255, blue: 49/255, alpha: 0.5)
+            
+            // Set the color for the button background
+            resultButton.backgroundColor = UIColor(red: 7/255, green: 58/255, blue: 15/255, alpha: 0.5)
+            
+        }
+        else if color == UIColor.red {
+            
+            // Set the color for the background
+            resultView.backgroundColor = UIColor(red: 161/255, green: 34/255, blue: 36/255, alpha: 0.5)
+            
+            // Set the color for the button background
+            resultButton.backgroundColor = UIColor(red: 58/255, green: 19/255, blue: 16/255, alpha: 0.5)
+        }
+    }
     
+  
+    func saveState() {
+        
+        let defaults = UserDefaults.standard
+        
+        // Save the number correct
+        defaults.set(numberCorrect, forKey: "numberCorrect")
+        
+        // Save the question index
+        if currentQuestion != nil {
+            let index = questions.index(of: currentQuestion!)
+            
+            if let actualIndex = index {
+                defaults.set(actualIndex, forKey: "questionIndex")
+            }
+        }
+        
+        // Save the resultView visibility
+        defaults.set(dimView.alpha == 1.0, forKey: "resultViewVisibility")
+        
+        // Save the result view title
+        defaults.set(resultLabel.text, forKey: "resultViewTitle")
+        
+        defaults.synchronize()
+    }
+    
+    func loadState() {
+        
+        let defaults = UserDefaults.standard
+        
+        // Load the number correct
+        if let actualNumberCorrect = defaults.value(forKey: "numberCorrect") as? Int
+            {
+            numberCorrect = actualNumberCorrect
+        }
+        
+        // Load the question index
+        if let actualQuestionIndex = defaults.value(forKey: "questionIndex") as? Int
+        {
+         // Check if the actualQuestionIndex is within the bounds of the question array
+            if actualQuestionIndex < questions.count {
+                currentQuestion = questions[actualQuestionIndex]
+            }
+        }
+        // Load the resultView visibility
+        if let actualVisibilty = defaults.value(forKey: "resultViewVisibility") as? Bool {
+            
+            // Show the feedback screen
+            if actualVisibilty == true {
+                
+                // Get hte result title
+                if let actualResultLableTitle = defaults.value(forKey: "resultViewTitle") as? String {
+                    
+                    resultLabel.text = actualResultLableTitle
+                    
+                    if actualResultLableTitle == "Correct!" {
+                        // User had it correct, so set the result view to green
+                        
+                        changeResultViewColor(color: UIColor.green)
+                    }
+                    else {
+                        // Set it to red
+                        
+                        changeResultViewColor(color: UIColor.red)
+                    }
+                }
+                
+                feedbackLabel.text = currentQuestion?.feedback
+                
+                dimView.alpha = 1
+            }
+        }
+        
+    }
+    
+    func eraseState() {
+        
+        let defaults = UserDefaults.standard
+        
+        // Erase the number correct
+        defaults.set(0, forKey: "numberCorrect")
+        
+        // Erase the question index
+        defaults.set(0, forKey: "questionIndex")
+        
+        // Erase the resultView visibility
+        defaults.set(false, forKey: "resultViewVisibility")
+        
+        // Erase the resultView title
+        defaults.set("", forKey: "resultViewTitle")
+        
+        // Synchronize
+        defaults.synchronize()
+    }
     
     
     
