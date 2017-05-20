@@ -20,6 +20,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var resultButton: UIButton!
     @IBOutlet weak var resultView: UIView!
     
+    
+    @IBOutlet weak var resultViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var resultViewTopConstraint: NSLayoutConstraint!
+    
+    
+    
     var currentQuestion:Question?
     
     let model = QuizModel()
@@ -58,8 +64,17 @@ class ViewController: UIViewController {
         
         if let actualCurrentQuestion = currentQuestion {
             
+            // Set question label to alpha 0
+            questionLabel.alpha = 0
+            
             // Set the question label
             questionLabel.text = actualCurrentQuestion.questionText
+            
+            UIView.animate(withDuration: 1, delay: 0, options: .curveEaseOut, animations: { 
+                
+                self.questionLabel.alpha = 1
+                
+            }, completion: nil)
             
             // Create the answer buttons and place them into the scrollview
             createAnswerButtons()
@@ -91,9 +106,22 @@ class ViewController: UIViewController {
                 
                 answerButton.addGestureRecognizer(gestureRecognizer)
                 
+                // Set the answer buttom alpha = 0
+                
+                answerButton.alpha = 0
+                
                 // Place the answer button into the stackview
                 answerStackView.addArrangedSubview(answerButton)
                 
+                // Calculate a delay
+                let delayAmount = Double(index) * 0.2
+                
+                // Fade it in
+                UIView.animate(withDuration: 0.5, delay: delayAmount, options: .curveEaseOut, animations: {
+                    
+                    answerButton.alpha = 1
+                    
+                }, completion: nil)
             }
         }
         
@@ -139,8 +167,27 @@ class ViewController: UIViewController {
             // Set the button text
             resultButton.setTitle("Next", for: .normal)
             
-            // Show the feedback screen
-            dimView.alpha = 1
+            // Set the constraint constants to shift the feedback view out of view
+            resultViewTopConstraint.constant = 1000
+            resultViewBottomConstraint.constant = -1000
+        
+            // Layout views right away
+            view.layoutIfNeeded()
+            
+            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
+                
+                // Update the constraints
+                self.resultViewTopConstraint.constant = 30
+                self.resultViewBottomConstraint.constant = 30
+                
+                self.view.layoutIfNeeded()
+                
+                // Show the feedback screen
+                self.dimView.alpha = 1
+                
+            }, completion: nil)
+            
+
         }
     }
     
