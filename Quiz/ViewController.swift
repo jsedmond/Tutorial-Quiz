@@ -20,11 +20,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var resultButton: UIButton!
     @IBOutlet weak var resultView: UIView!
     
-    
     @IBOutlet weak var resultViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var resultViewTopConstraint: NSLayoutConstraint!
-    
-    
     
     var currentQuestion:Question?
     
@@ -53,7 +50,6 @@ class ViewController: UIViewController {
             
             // Display the current question
             displayCurrentQuestion()
-            
         }
     }
 
@@ -76,7 +72,7 @@ class ViewController: UIViewController {
                 
                 self.questionLabel.alpha = 1
                 
-            }, completion: nil)
+                }, completion: nil)
             
             // Create the answer buttons and place them into the scrollview
             createAnswerButtons()
@@ -84,6 +80,7 @@ class ViewController: UIViewController {
             // Save state
             saveState()
         }
+        
     }
     
     func createAnswerButtons() {
@@ -112,7 +109,6 @@ class ViewController: UIViewController {
                 answerButton.addGestureRecognizer(gestureRecognizer)
                 
                 // Set the answer buttom alpha = 0
-                
                 answerButton.alpha = 0
                 
                 // Place the answer button into the stackview
@@ -123,15 +119,14 @@ class ViewController: UIViewController {
                 
                 // Fade it in
                 UIView.animate(withDuration: 0.5, delay: delayAmount, options: .curveEaseOut, animations: {
-                    
                     answerButton.alpha = 1
-                    
                 }, completion: nil)
+                
             }
+            
         }
         
     }
-    
     
     func answerTapped(gestureRecognizer:UITapGestureRecognizer){
         
@@ -149,7 +144,6 @@ class ViewController: UIViewController {
                 
                 // Increment counter
                 numberCorrect += 1
-                
             }
             else {
                 // User got it wrong
@@ -185,10 +179,10 @@ class ViewController: UIViewController {
             }, completion: { (Bool) in
                 self.saveState()
             })
+            
         }
+        
     }
-    
-    
     
     @IBAction func resultButtonTapped(_ sender: Any) {
         
@@ -204,7 +198,6 @@ class ViewController: UIViewController {
         if let actualTitle = currentTitle {
             if actualTitle == "Restart" {
                 // Restart the quiz
-                
                 
                 // Set the current question to the first one
                 currentQuestion = questions[0]
@@ -259,15 +252,12 @@ class ViewController: UIViewController {
                 
                 // Reset the locally stored values
                 eraseState()
-                
             }
-
-            
         }
+        
     }
     
     func changeResultViewColor(color:UIColor) {
-        
         
         if color == UIColor.green {
             
@@ -275,20 +265,21 @@ class ViewController: UIViewController {
             resultView.backgroundColor = UIColor(red: 72/255, green: 161/255, blue: 49/255, alpha: 0.5)
             
             // Set the color for the button background
-            resultButton.backgroundColor = UIColor(red: 7/255, green: 58/255, blue: 15/255, alpha: 0.5)
+            resultButton.backgroundColor = UIColor(red: 7/255, green: 56/255, blue: 16/255, alpha: 0.5)
             
         }
         else if color == UIColor.red {
             
             // Set the color for the background
-            resultView.backgroundColor = UIColor(red: 161/255, green: 34/255, blue: 36/255, alpha: 0.5)
+            resultView.backgroundColor = UIColor(red: 161/255, green: 44/255, blue: 36/255, alpha: 0.5)
             
             // Set the color for the button background
-            resultButton.backgroundColor = UIColor(red: 58/255, green: 19/255, blue: 16/255, alpha: 0.5)
+            resultButton.backgroundColor = UIColor(red: 56/255, green: 19/255, blue: 16/255, alpha: 0.5)
+        
         }
+        
     }
     
-  
     func saveState() {
         
         let defaults = UserDefaults.standard
@@ -319,19 +310,18 @@ class ViewController: UIViewController {
         let defaults = UserDefaults.standard
         
         // Load the number correct
-        if let actualNumberCorrect = defaults.value(forKey: "numberCorrect") as? Int
-            {
+        if let actualNumberCorrect = defaults.value(forKey: "numberCorrect") as? Int {
             numberCorrect = actualNumberCorrect
         }
         
         // Load the question index
-        if let actualQuestionIndex = defaults.value(forKey: "questionIndex") as? Int
-        {
+        if let actualQuestionIndex = defaults.value(forKey: "questionIndex") as? Int {
          // Check if the actualQuestionIndex is within the bounds of the question array
             if actualQuestionIndex < questions.count {
                 currentQuestion = questions[actualQuestionIndex]
             }
         }
+        
         // Load the resultView visibility
         if let actualVisibilty = defaults.value(forKey: "resultViewVisibility") as? Bool {
             
@@ -347,6 +337,7 @@ class ViewController: UIViewController {
                         // User had it correct, so set the result view to green
                         
                         changeResultViewColor(color: UIColor.green)
+                        
                     }
                     else {
                         // Set it to red
@@ -383,12 +374,7 @@ class ViewController: UIViewController {
         defaults.synchronize()
     }
     
-    
-    
-    
-    
-    
-    
+
 
 }
 
