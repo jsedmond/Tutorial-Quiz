@@ -94,7 +94,7 @@ class ViewController: UIViewController {
                 answerButton.tag = index
                 
                 // Create a height constraint for it
-                let heightConstraint = NSLayoutConstraint.init(item: answerButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 100)
+                let heightConstraint = NSLayoutConstraint(item: answerButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 100)
                 answerButton.addConstraint(heightConstraint)
                 
                 // Set the answer text
@@ -103,12 +103,12 @@ class ViewController: UIViewController {
                 // Set the number label
                 answerButton.setNumberLabel(answerNumber: index + 1)
                 
-                // TODO: Create and attach a tapguesturerecognizer
+                // Create and attach a tapgesturerecognizer
                 let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(answerTapped(gestureRecognizer:)))
                 
                 answerButton.addGestureRecognizer(gestureRecognizer)
                 
-                // Set the answer buttom alpha = 0
+                // Set the answer button alpha = 0
                 answerButton.alpha = 0
                 
                 // Place the answer button into the stackview
@@ -138,7 +138,7 @@ class ViewController: UIViewController {
             
             if answerButton.tag == currentQuestion?.correctAnswerIndex {
                 // User got it correct
-                resultLabel.text = "Correct"
+                resultLabel.text = "Correct!"
                 
                 changeResultViewColor(color: UIColor.green)
                 
@@ -191,7 +191,7 @@ class ViewController: UIViewController {
             view.removeFromSuperview()
         }
         
-        // Check the text of the resultButton.  If it's restart then restart the quiz
+        // Check the text of the resultButton.  If it's restart, then restart the quiz
         let currentTitle = resultButton.title(for: .normal)
         
         // Check if there's a title
@@ -203,7 +203,7 @@ class ViewController: UIViewController {
                 currentQuestion = questions[0]
                 displayCurrentQuestion()
                 
-                // Get ride of the result screen
+                // Get rid of the result screen
                 dimView.alpha = 0
                 
                 // Reset score
@@ -323,17 +323,17 @@ class ViewController: UIViewController {
         }
         
         // Load the resultView visibility
-        if let actualVisibilty = defaults.value(forKey: "resultViewVisibility") as? Bool {
+        if let actualVisibility = defaults.value(forKey: "resultViewVisibility") as? Bool {
             
             // Show the feedback screen
-            if actualVisibilty == true {
+            if actualVisibility == true {
                 
-                // Get hte result title
-                if let actualResultLableTitle = defaults.value(forKey: "resultViewTitle") as? String {
+                // Get the result title
+                if let actualResultLabelTitle = defaults.value(forKey: "resultViewTitle") as? String {
                     
-                    resultLabel.text = actualResultLableTitle
+                    resultLabel.text = actualResultLabelTitle
                     
-                    if actualResultLableTitle == "Correct!" {
+                    if actualResultLabelTitle == "Correct!" {
                         // User had it correct, so set the result view to green
                         
                         changeResultViewColor(color: UIColor.green)

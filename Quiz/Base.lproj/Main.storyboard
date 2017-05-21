@@ -85,7 +85,7 @@
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rSD-id-SaV">
                                                         <rect key="frame" x="0.0" y="547" width="315" height="60"/>
-                                                        <color key="backgroundColor" red="0.027450980392156862" green="0.22745098039215686" blue="0.062745098039215685" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" red="0.2196078431372549" green="0.074509803921568626" blue="0.062745098039215685" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="60" id="Y95-J5-VfR"/>
                                                         </constraints>
@@ -104,7 +104,7 @@
                                                 </constraints>
                                             </stackView>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.19746794619142724" green="0.40781933069229126" blue="0.14035659159856365" alpha="0.60640404929577463" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.63137254901960782" green="0.17254901960784313" blue="0.14117647058823529" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="NV6-Bq-wBG" secondAttribute="bottom" id="9nh-Nf-Ssh"/>
                                             <constraint firstAttribute="trailing" secondItem="NV6-Bq-wBG" secondAttribute="trailing" id="Jql-0d-MY1"/>
