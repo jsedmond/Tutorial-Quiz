@@ -15,7 +15,10 @@ class QuizModel: NSObject {
         var questions = [Question]()
         
         // Get array of dictionaries from JSON file
-        let array = getLocalJsonFile()
+        let array = getRemoteJsonFile()
+        
+        // Get array of dictions from JSON file if local
+        // COMMENTED OUT: let array = getLocalJsonFile()
         
         // Parse ditionaries into Question objects
         for dict in array {
@@ -38,6 +41,31 @@ class QuizModel: NSObject {
         // Return the list of question objects
         
         return questions
+    }
+    
+    func getRemoteJsonFile() -> [[String:Any]] {
+        
+        do {
+            // Create url object pointing to url of file
+            let url = URL(string: "https://codewithchris.com/code/QuestionData.json")
+        
+                if let actualUrl = url {
+                
+                // Create data object using contents of init
+                let data = try Data(contentsOf: actualUrl)
+                    
+                // Parse the data into dictinaries
+                    let array = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as! [[String:Any]]
+                
+                return array
+            }
+        }
+        catch {
+            // Couldn't download the json file or couldn't parse the file
+        }
+        
+        return [[String:Any]]()
+        
     }
     
     func getLocalJsonFile() -> [[String:Any]] {
@@ -68,4 +96,10 @@ class QuizModel: NSObject {
         return [[String:Any]]()
     }
 
+    
+    
+    
+    
+    
+    
 }
